@@ -1,3 +1,4 @@
+# INI BELOM KELAR YA AL OKEEEEEE
 # IT21-Modul2-Jarkom
 
 - Maria Teresia Elvara Bumbungan (5027211042)
@@ -862,5 +863,5 @@ Listen 14400
 #### Nakula dan Sadewa
 - lynx http://www.rjp.baratayuda.abimanyu.IT21.com (tanpa auth)`
 ![image56]()
-- lynx http://www.rjp.baratayuda.abimanyu.IT21.com:14000 -u Wayang:baratayudait03`
+- lynx http://www.rjp.baratayuda.abimanyu.IT21.com:14000 -u Wayang:baratayudaIT21`
 ![image28]()
