@@ -63,6 +63,57 @@ rm -rf /var/www/abimanyu.yyy.com
 cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/abimanyu.IT21.com.conf
 rm /etc/apache2/sites-available/000-default.conf
 
+echo "
+<VirtualHost *:80>
+        # The ServerName directive sets the request scheme, hostname and port that
+        # the server uses to identify itself. This is used when creating
+        # redirection URLs. In the context of virtual hosts, the ServerName
+        # specifies what hostname must appear in the request's Host: header to
+        # match this virtual host. For the default virtual host (this file) this
+        # value is not decisive as it is used as a last resort host regardless.
+        # However, you must set it for any further virtual host explicitly.
+        #ServerName www.example.com
+
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/abimanyu.IT21
+        ServerName abimanyu.IT21.com
+        ServerAlias www.abimanyu.IT21.com
+
+        <Directory /var/www/abimanyu.IT21/index.php/home>
+                Options +Indexes
+        </Directory>
+
+        Alias \"/home\" \"/var/www/abimanyu.IT21/index.php/home\"
+
+        # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
+        # error, crit, alert, emerg.
+        # It is also possible to configure the loglevel for particular
+        # modules, e.g.
+        #LogLevel info ssl:warn
+
+        ErrorLog \${APACHE_LOG_DIR}/error.log
+        CustomLog \${APACHE_LOG_DIR}/access.log combined
+
+        # For most configuration files from conf-available/, which are
+        # enabled or disabled at a global level, it is possible to
+        # include a line for only one particular virtual host. For example the
+        # following line enables the CGI configuration for this host only
+        # after it has been globally disabled with \"a2disconf\".
+        #Include conf-available/serve-cgi-bin.conf
+</VirtualHost>
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
+" > /etc/apache2/sites-available/abimanyu.IT21.com.conf
+
+a2ensite abimanyu.IT21.com.conf
+
+wget -O '/var/www/parikesit.abimanyu.IT21.com' 'https://drive.google.com/uc?export=download&id=1LdbYntiYVF_NVNgJis1GLCLPEGyIOreS'
+unzip -o /var/www/parikesit.abimanyu.IT21.com -d /var/www/
+mv /var/www/parikesit.abimanyu.yyy.com /var/www/parikesit.abimanyu.IT21
+rm /var/www/parikesit.abimanyu.IT21.com
+rm -rf /var/www/parikesit.abimanyu.yyy.com
+mkdir /var/www/parikesit.abimanyu.IT21/secret
+
 a2enmod rewrite
 
 echo "
@@ -102,66 +153,6 @@ echo "
         RewriteCond %{REQUEST_URI} ^/public/images/(.*)(abimanyu)(.*\.(png|jpg))
         RewriteCond %{REQUEST_URI} !/public/images/abimanyu.png
         RewriteRule abimanyu http://parikesit.abimanyu.IT21.com/public/images/abimanyu.png\$1 [L,R=301]
-
-        # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
-        # error, crit, alert, emerg.
-        # It is also possible to configure the loglevel for particular
-        # modules, e.g.
-        #LogLevel info ssl:warn
-
-        ErrorDocument 404 /error/404.html
-        ErrorDocument 403 /error/403.html
-
-        ErrorLog \${APACHE_LOG_DIR}/error.log
-        CustomLog \${APACHE_LOG_DIR}/access.log combined
-
-        # For most configuration files from conf-available/, which are
-        # enabled or disabled at a global level, it is possible to
-        # include a line for only one particular virtual host. For example the
-        # following line enables the CGI configuration for this host only
-        # after it has been globally disabled with \"a2disconf\".
-        #Include conf-available/serve-cgi-bin.conf
-</VirtualHost>
-
-# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
-" > /etc/apache2/sites-available/parikesit.abimanyu.IT21.com.conf
-
-a2ensite abimanyu.IT21.com.conf
-
-wget -O '/var/www/parikesit.abimanyu.IT21.com' 'https://drive.google.com/uc?export=download&id=1LdbYntiYVF_NVNgJis1GLCLPEGyIOreS'
-unzip -o /var/www/parikesit.abimanyu.IT21.com -d /var/www/
-mv /var/www/parikesit.abimanyu.yyy.com /var/www/parikesit.abimanyu.IT21
-rm /var/www/parikesit.abimanyu.IT21.com
-rm -rf /var/www/parikesit.abimanyu.yyy.com
-mkdir /var/www/parikesit.abimanyu.IT21/secret
-
-echo "
-<VirtualHost *:80>
-        # The ServerName directive sets the request scheme, hostname and port that
-        # the server uses to identify itself. This is used when creating
-        # redirection URLs. In the context of virtual hosts, the ServerName
-        # specifies what hostname must appear in the request's Host: header to
-        # match this virtual host. For the default virtual host (this file) this
-        # value is not decisive as it is used as a last resort host regardless.
-        # However, you must set it for any further virtual host explicitly.
-        #ServerName www.example.com
-
-        ServerAdmin webmaster@localhost
-        DocumentRoot /var/www/parikesit.abimanyu.IT21
-        ServerName parikesit.abimanyu.IT21.com
-        ServerAlias www.parikesit.abimanyu.IT21.com
-
-        <Directory /var/www/parikesit.abimanyu.IT21/public>
-                Options +Indexes
-        </Directory>
-
-        <Directory /var/www/parikesit.abimanyu.IT21/secret>
-                Options -Indexes
-        </Directory>
-
-        Alias \"/public\" \"/var/www/parikesit.abimanyu.IT21/public\"
-        Alias \"/secret\" \"/var/www/parikesit.abimanyu.IT21/secret\"
-        Alias \"/js\" \"/var/www/parikesit.abimanyu.IT21/public/js\"
 
         # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
         # error, crit, alert, emerg.
