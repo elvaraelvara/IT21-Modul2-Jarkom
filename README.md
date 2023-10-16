@@ -1,4 +1,6 @@
 # INI BELOM KELAR YA AL OKEEEEEE
+## maaf al temen kelompoknya nyebelin
+## nanti aku asistensi ke kamuu kalo udah rapi
 # IT21-Modul2-Jarkom
 
 - Maria Teresia Elvara Bumbungan (5027211042)
