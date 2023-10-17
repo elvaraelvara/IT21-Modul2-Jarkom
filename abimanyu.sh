@@ -7,13 +7,24 @@ service apache2 start
 apt-get install wget -y
 apt-get install unzip -y
 
-mkdir /var/www/abimanyu
+mkdir /var/www/jarkom
 
 echo "
-    <?php
-    echo \"Halo Abimanyu\";
-    ?>
-" > /var/www/abimanyu/index.php
+   <?php
+\$hostname = gethostname();
+\$date = date('Y-m-d H:i:s');
+\$php_version = phpversion();
+\$username = get_current_user();
+
+
+
+echo \"Hello World!<br>\";
+echo \"Saya adalah: \$username<br>\";
+echo \"Saat ini berada di: \$hostname<br>\";
+echo \"Versi PHP yang saya gunakan: \$php_version<br>\";
+echo \"Tanggal saat ini: \$date<br>\";
+?>
+" > /var/www/jarkom/index.php
 
 service php7.0-fpm start
 
@@ -22,7 +33,7 @@ echo "
 
         listen 8002;
 
-        root /var/www/abimanyu;
+        root /var/www/jarkom;
 
         index index.php index.html index.htm;
         server_name _;
@@ -41,14 +52,14 @@ echo "
                 deny all;
         }
 
-        error_log /var/log/nginx/abimanyu_error.log;
-        access_log /var/log/nginx/abimanyu_access.log;
+        error_log /var/log/nginx/jarkom_error.log;
+        access_log /var/log/nginx/jarkom_access.log;
     }
-" > /etc/nginx/sites-available/abimanyu
+" > /etc/nginx/sites-available/jarkom
 
 rm -rf /etc/nginx/sites-available/default
 
-ln -s /etc/nginx/sites-available/abimanyu /etc/nginx/sites-enabled
+ln -s /etc/nginx/sites-available/jarkom /etc/nginx/sites-enabled
 
 service nginx restart
 
