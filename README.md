@@ -1111,7 +1111,7 @@ Listen 14400
 
 `lynx rjp.baratayuda.abimanyu.IT21.com:14400`
 
-[![image23]()](https://i.ibb.co/r2KW3n2/image.png)
+![image28](https://i.ibb.co/r2KW3n2/image.png)
 
 ## **_Nomor 18_**
 ### Abimanyu
@@ -1143,7 +1143,6 @@ Kemudian, masukkan password baratayudaIT21
 
 ### Testing 
 #### Nakula dan Sadewa
-
 
 `lynx rjp.baratayuda.abimanyu.IT21.com:14000 -u Wayang:baratayudaIT21`
 
