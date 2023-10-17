@@ -1241,3 +1241,5 @@ service apache2 restart
 `lynx parikesit.abimanyu.IT21.com/public/images/not-abimanyu.png`
 
 ![image37](https://i.ibb.co/crBpbjk/image.png)
+
+![image38](https://i.ibb.co/YTYt2Vb/Whats-App-Image-2023-10-17-at-08-45-30-5aa6f089.jpg)
