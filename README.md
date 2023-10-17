@@ -1109,11 +1109,9 @@ Listen 14400
 
 `lynx rjp.baratayuda.abimanyu.IT21.com:14000`
 
-![image23]()
-
 `lynx rjp.baratayuda.abimanyu.IT21.com:14400`
 
-![image23]()
+[![image23]()](https://i.ibb.co/r2KW3n2/image.png)
 
 ## **_Nomor 18_**
 ### Abimanyu
@@ -1145,13 +1143,11 @@ Kemudian, masukkan password baratayudaIT21
 
 ### Testing 
 #### Nakula dan Sadewa
-`lynx rjp.baratayuda.abimanyu.IT21.com (tanpa auth)`
 
-![image56]()
 
 `lynx rjp.baratayuda.abimanyu.IT21.com:14000 -u Wayang:baratayudaIT21`
 
-![image28]()
+![image28](https://i.ibb.co/r2KW3n2/image.png)
 
 # **_Nomor 19_**
 ### Abimanyu
@@ -1176,7 +1172,7 @@ service apache2 restart
 #### Nakula dan Sadewa
 `lynx 10.74.4.3`
 
-![image28]()
+![image27](https://i.ibb.co/26QMkGM/image.png)
 
 ## **_Nomor 20_**
 ### Abimanyu
@@ -1244,4 +1240,4 @@ service apache2 restart
 #### Nakula dan Sadewa
 `lynx parikesit.abimanyu.IT21.com/public/images/not-abimanyu.png`
 
-![image37]()
+![image37](https://i.ibb.co/crBpbjk/image.png)
