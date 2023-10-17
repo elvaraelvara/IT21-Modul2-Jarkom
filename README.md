@@ -113,8 +113,10 @@ Dengan cara yang sama seperti soal nomor 2, buatlah website utama dengan akses k
 apt-get update
 apt-get install bind9 dnsutils -y
 ```
-`nano /etc/bind/named.conf.local`
+
 Buat konfigurasi
+
+`nano /etc/bind/named.conf.local`
 ```bash
 zone "arjuna.IT21.com" {
 	type master;
@@ -125,9 +127,13 @@ zone "abimanyu.IT21.com" {
 	file "/etc/bind/abimanyu/abimanyu.it21.com";
 };
 ```
-`mkdir /etc/bind/arjuna`
-`nano /etc/bind/arjuna/arjuna.IT21.com`
-Buat konfigurasi
+Buat konfigurasi zona arjuna.IT21.com
+
+```
+mkdir /etc/bind/arjuna
+nano /etc/bind/arjuna/arjuna.IT21.com
+```
+
 ```bash
 $TTL 604800
 @       IN      SOA arjuna.IT21.com. root.arjuna.IT21.com. (
@@ -141,9 +147,12 @@ $TTL 604800
 @       IN      A       10.74.4.5
 www     IN      CNAME   arjuna.IT21.com.
 ```
-`mkdir /etc/bind/abimanyu`
-`nano /etc/bind/abimanyu/abimanyu.IT21.com`
-Buat konfigurasi
+Buat konfigurasi zona abimanyu.IT21.com
+
+```
+mkdir /etc/bind/abimanyu
+nano /etc/bind/abimanyu/abimanyu.IT21.com
+```
 ```bash
 $TTL 604800
 @       IN      SOA abimanyu.IT21.com. root.abimanyu.IT21.com. (
@@ -164,8 +173,9 @@ www     IN      CNAME   abimanyu.IT21.com.
 apt-get update
 apt-get install dnsutils -y
 ```
+Sambungkan dengan IP dituju
+
 `nano /etc/resolv.conf`
-Sambungkan dengan server dituju
 
 ```bash
 nameserver 10.74.1.2
@@ -175,6 +185,7 @@ nameserver 10.74.4.3
 ### Testing
 #### Nakula dan Sadewa
 `ping abimanyu.IT21.com`
+
 `ping arjuna.IT21.com`
 
 ![2](https://i.ibb.co/rbXcQTj/image.png)
@@ -184,8 +195,9 @@ nameserver 10.74.4.3
 Kemudian, karena terdapat beberapa web yang harus di-deploy, buatlah subdomain parikesit.abimanyu.yyy.com yang diatur DNS-nya di Yudhistira dan mengarah ke Abimanyu.
 
 ### Yudhistira
-`nano /etc/bind/abimanyu/abimanyu.IT21.com`
 Tambahkan konfigurasi
+
+`nano /etc/bind/abimanyu/abimanyu.IT21.com`
 ```bash
 $TTL 604800
 @       IN      SOA     abimanyu.IT21.com. root.abimanyu.IT21.com. (
@@ -206,14 +218,16 @@ parikesit       IN      A       10.74.4.3
 ### Testing
 #### Nakula dan Sadewa
 `ping parikesit.abimanyu.IT21.com`
+
 ![Teks Alternatif](https://i.ibb.co/bmZ4vF7/image.png)
 
 ## **_Nomor 5_**
 Buat juga reverse domain untuk domain utama. (Abimanyu saja yang direverse)
 
 ### Yudhistira
+Tambahkan code berikut
+
 `nano /etc/bind/named.conf.local`
-Tambahkan code berikut 
 ```bash
 zone "3.4.74.10.in-addr.arpa" {
 	type master;
@@ -240,14 +254,16 @@ zone "3.4.74.10.in-addr.arpa" {
 ### Testing
 #### Nakula dan Sadewa
 `host -t PTR 10.74.4.3`
+
 ![s](https://i.ibb.co/gPghZnq/image.png)
 
 ## **_Nomor 6_**
 Agar dapat tetap dihubungi ketika DNS Server Yudhistira bermasalah, buat juga Werkudara sebagai DNS Slave untuk domain utama.
 
 ### Yudhistira
-`nano /etc/bind/named.conf.local`
 Modifikasi konfigurasi 
+
+`nano /etc/bind/named.conf.local`
 ```
 zone “arjuna.IT21.com” {
 	type master;
@@ -272,8 +288,9 @@ zone “abimanyu.IT21.com” {
 apt-get update
 apt-get install bind9 -y
 ```
+Tambahkan konfigurasi
+
 `nano /etc/bind/named.conf.local`
-Tambahkan
 ```bash
 zone “arjuna.IT21.com” {
 	type slave;
@@ -290,6 +307,7 @@ zone “abimanyu.IT21.com” {
 
 ### Yudhistira
 Untuk mengecek apabila yudhistira bermasalah
+
 `service bind9 stop`
 
 ### Testing
@@ -303,7 +321,9 @@ nameserver 10.74.4.3
 ```
 
 `ping abimanyu.IT21.com -c 5`
+
 `ping www.abimanyu.IT21.com -c 5`
+
 ![image25](https://i.ibb.co/YZRw3TP/image.png)
 
 ## **_Nomor 7_**
@@ -311,8 +331,9 @@ Seperti yang kita tahu karena banyak sekali informasi yang harus diterima, buatl
 
 ### Yudhistira
 
+Menambahkan konfigurasi untuk mendelegasikan subdomain baratayuda ke Werkudara
+
 `nano /etc/bind/abimanyu/abimanyu.IT21.com`
-Sebagai alias
 ```bash
 $TTL 604800
 @       IN      SOA     abimanyu.IT21.com. root.abimanyu.IT21.com. (
@@ -330,8 +351,9 @@ parikesit       IN      A       10.74.4.3
 ns1     IN      A       10.74.2.2
 baratayuda      IN      NS      ns1
 ```
-`nano /etc/bind/named.conf.options`
 Modifikasi konfigurasi
+
+`nano /etc/bind/named.conf.options`
 ```bash
 options {
 	directory "/var/cache/bind";
@@ -362,9 +384,9 @@ options {
 apt-get update
 apt-get install bind9 -y
 ```
-`mkdir /etc/bind/baratayuda`
-`nano /etc/bind/named.conf.options`
 Modifikasi konfigurasi
+
+`nano /etc/bind/named.conf.options`
 ```bash
  options {
             directory "/var/cache/bind";
@@ -394,20 +416,21 @@ Modifikasi konfigurasi
             listen-on-v6 { any; };
     };
 ```
+Tambahkan konfigurasi
 
 `nano /etc/bind/named.conf.local`
-Tambahkan konfigurasi
 ```bash
  zone "baratayuda.abimanyu.IT21.com" {
-
         type master;
-
         file "/etc/bind/baratayuda/baratayuda.abimanyu.IT21.com";
-
     };
 ```
-`nano etc/bind/baratayuda/baratayuda.abimanyu.IT21.com`
-Tambahkan konfigurasi
+Tambahkan konfigurasi untuk zona baratayuda.abimanyu.IT21.com
+
+```
+mkdir /etc/bind/baratayuda
+nano etc/bind/baratayuda/baratayuda.abimanyu.IT21.com
+```
 ```bash
 $TTL 604800
 @       IN      SOA     baratayuda.abimanyu.IT21.com. root.baratayuda.abimanyu.IT21.com. (
@@ -428,15 +451,18 @@ www     IN      CNAME   baratayuda.abimanyu.IT21.com.
 ### Testing
 #### Nakula dan Sadewa
 `ping baratayuda.abimanyu.IT21.com`
+
 `ping www.baratayuda.abimanyu.IT21.com`
+
 ![image28](https://i.ibb.co/g70NcGH/image.png)
 
 ## **_Nomor 8_**
 Untuk informasi yang lebih spesifik mengenai Ranjapan Baratayuda, buatlah subdomain melalui Werkudara dengan akses rjp.baratayuda.abimanyu.yyy.com dengan alias www.rjp.baratayuda.abimanyu.yyy.com yang mengarah ke Abimanyu.
 
 ### Yudhistira
-`nano /etc/bind/abimanyu/abimanyu.IT21.com`
 Tambahkan konfigurasi
+
+`nano /etc/bind/abimanyu/abimanyu.IT21.com`
 ```bash
 $TTL 604800
 @       IN      SOA     abimanyu.IT21.com. root.abimanyu.IT21.com. (
@@ -457,8 +483,10 @@ baratayuda      IN      NS      ns1
 `service bind9 restart`
 
 ### Werkudara
+Tambahkan konfigurasi alias
+
 `nano /etc/bind/baratayuda/baratayuda.abimanyu.IT21.com`
-Tambahkan konfigurasi pada direktori alias
+
 ```bash
 $TTL 604800
 @       IN      SOA     baratayuda.abimanyu.IT21.com. root.baratayuda.abimanyu.IT21.com. (
@@ -480,7 +508,9 @@ www.rjp IN      CNAME   baratayuda.abimanyu.IT21.com.
 ### Testing
 #### Nakula dan Sadewa
 `ping rjp.baratayuda.abimanyu.IT21.com`
+
 `ping www.rjp.baratayuda.abimanyu.IT21.com`
+
 ![image2](https://i.ibb.co/xMFS2hv/image.png)
 
 ## **_Nomor 9_**
@@ -496,9 +526,10 @@ apt-get install lynx -y
 apt-get install nginx -y
 mkdir /var/www/jarkom
 ```
+Tambahkan file php sesuai dengan file requirement
 
 `nano /var/www/jarkom/index.php`
-Tambahkan isi sesuai dengan instruksi drive 
+
 ```php
 <?php
 \$hostname = gethostname();
@@ -515,8 +546,9 @@ echo \"Tanggal saat ini: $date<br>\";
 ```
 `service php7.0-fpm start`
 
-`nano /etc/nginx/sites-available/jarkom`
 Buat konfigurasi
+
+`nano /etc/nginx/sites-available/jarkom`
 ```bash
 server {
 
@@ -545,10 +577,12 @@ server {
         access_log /var/log/nginx/jarkom_access.log;
     }
 ```
-`rm -rf /etc/nginx/sites-available/default`
-`ln -s /etc/nginx/sites-available/jarkom /etc/nginx/sites-enabled`
-`service nginx restart`
-`nginx -t`
+```
+rm -rf /etc/nginx/sites-available/default
+ln -s /etc/nginx/sites-available/jarkom /etc/nginx/sites-enabled
+service nginx restart
+nginx -t
+```
 
 
 ### Testing
@@ -558,10 +592,15 @@ apt-get update
 apt-get install lynx -y
 ```
 `lynx http://10.74.4.2`
+
 ![image10]()
+
 `lynx http://10.74.4.3`
+
 ![image31]()
+
 `lynx http://10.74.4.4`
+
 ![image32]()
 
 ## **_Nomor 10_**
@@ -590,15 +629,18 @@ server {
 }
 ```
 
-`ln -s /etc/nginx/sites-available/jarkom /etc/nginx/sites-enabled/jarkom`
-`rm /etc/nginx/sites-enabled/default`
-`service nginx restart`
+```
+ln -s /etc/nginx/sites-available/jarkom /etc/nginx/sites-enabled/jarkom
+rm /etc/nginx/sites-enabled/default
+service nginx restart
+```
 
 ### Worker (Prabukusuma, Abimanyu, Wisanggeni)
-Lakukan hal yang sama di ketiga worker dengan menyesuaikan port pada soal
+Lakukan hal yang sama di ketiga worker dengan menyesuaikan port pada soal.
+
+Buat konfigurasi dimana port menyesuaikan 800_ diisi sesuai port worker masing masing
 
 `nano /etc/nginx/sites-available/jarkom`
-Buat konfigurasi dimana port menyesuaikan 800_ diisi sesuai port worker masing masing
 ```bash
 server {
 
@@ -634,12 +676,19 @@ apt-get update
 apt-get install lynx -y
 ```
 `lynx http://10.74.4.2:8001`
+
 ![image10]()
+
 `lynx http://10.74.4.3:8002`
+
 ![image31]()
+
 `lynx http://10.74.4.4:8003`
+
 ![image32]()
+
 `lynx arjuna.IT21.com`
+
 ![image32]()
 
 ## **_Nomor 11_**
@@ -654,8 +703,9 @@ unzip abimanyu -d abimanyu.IT21
 mv abimanyu.IT21/abimanyu.yyy.com/* abimanyu.IT21
 rmdir abimanyu.it03/abimanyu.yyy.com
 ```
-`nano /etc/apache2/sites-available/abimanyu.IT21.conf`
 Membuat konfigurasi
+
+`nano /etc/apache2/sites-available/abimanyu.IT21.conf`
 ```bash 
 <VirtualHost *:80>
         # The ServerName directive sets the request scheme, hostname and port that
@@ -690,20 +740,25 @@ Membuat konfigurasi
 </VirtualHost>
 ```
 
-`a2ensite abimanyu.IT21.conf`
-`service apache2 restart`
+```
+a2ensite abimanyu.IT21.conf
+service apache2 restart
+```
 
 ### Testing
 #### Nakula dan Sadewa
 `lynx abimanyu.IT21.com`
+
 ![image27](https://i.ibb.co/26QMkGM/image.png)
 
 ## **_Nomor 12_**
 Setelah itu ubahlah agar url www.abimanyu.yyy.com/index.php/home menjadi www.abimanyu.yyy.com/home.
 
 ### Abimanyu
+Menambahkan konfigurasi agar dapat menuju www.abimanyu.yyy.com/home
+
 `nano /etc/apache2/sites-available/abimanyu.IT21.conf`
-Menambahkan konfigurasi agar dapat www.abimanyu.yyy.com/home
+
 ```bash
 <VirtualHost *:80>
         # The ServerName directive sets the request scheme, hostname and port that
@@ -749,14 +804,16 @@ Menambahkan konfigurasi agar dapat www.abimanyu.yyy.com/home
 #### Nakula dan Sadewa
 
 `lynx abimanyu.IT21.com/home`
+
 ![image2](https://i.ibb.co/s2sbWqq/image.png)
 
 ## **_Nomor 13_**
 Selain itu, pada subdomain www.parikesit.abimanyu.yyy.com, DocumentRoot disimpan pada /var/www/parikesit.abimanyu.yyy
 
 ### Abimanyu
-`nano /etc/apache2/sites-available/parikesit.abimanyu.IT21.com.conf`
 Membuat konfigurasi
+
+`nano /etc/apache2/sites-available/parikesit.abimanyu.IT21.com.conf`
 ```bash
 <VirtualHost *:80>
         # The ServerName directive sets the request scheme, hostname and port that
@@ -784,12 +841,15 @@ Membuat konfigurasi
         #Include conf-available/serve-cgi-bin.conf
 </VirtualHost>
 ```
-`a2ensite parikesit.abimanyu.IT21.com.conf`
-`service apache2 restart`
+```
+a2ensite parikesit.abimanyu.IT21.com.conf
+service apache2 restart
+```
 
 ### Testing
 #### Nakula dan Sadewa
 `lynx parikesit.abimanyu.IT21.com`
+
 ![image2](https://i.ibb.co/x8kDcZB/image.png)
 
 
@@ -797,8 +857,9 @@ Membuat konfigurasi
 Pada subdomain tersebut folder /public hanya dapat melakukan directory listing sedangkan pada folder /secret tidak dapat diakses (403 Forbidden).
 
 ### Abimanyu
-`nano /etc/apache2/sites-available/parikesit.abimanyu.it21.com`
 Tambahkan code berikut dimana +Indexes berguna untuk public dan -Indexes untuk secret 
+
+`nano /etc/apache2/sites-available/parikesit.abimanyu.it21.com`
 ```bash
 <VirtualHost *:80>
         # The ServerName directive sets the request scheme, hostname and port that
@@ -849,16 +910,20 @@ Tambahkan code berikut dimana +Indexes berguna untuk public dan -Indexes untuk s
 #### Nakula dan Sadewa
 
 `lynx parikesit.abimanyu.IT21.com/public`
+
 ![image20](https://i.ibb.co/rpK66Kr/image.png)
+
 `lynx parikesit.abimanyu.IT21.com/secret`
+
 ![image20](https://i.ibb.co/hMpRqqY/image.png)
 
 ## **_Nomor 15_**
 Buatlah kustomisasi halaman error pada folder /error untuk mengganti error kode pada Apache. Error kode yang perlu diganti adalah 404 Not Found dan 403 Forbidden.
 
 ### Abimanyu
-`nano /etc/apache2/sites-available/parikesit.abimanyu.it03.conf` 
 Menambahkan konfigurasi ErrorDocument
+
+`nano /etc/apache2/sites-available/parikesit.abimanyu.it03.conf` 
 ```bash
 <VirtualHost *:80>
         # The ServerName directive sets the request scheme, hostname and port that
@@ -912,17 +977,20 @@ Menambahkan konfigurasi ErrorDocument
         #Include conf-available/serve-cgi-bin.conf
 </VirtualHost>
 ```
-
 `service apache2 restart`
 
 ### Testing
 #### Nakula dan Sadewa
-`lynx parikesit.abimanyu.IT21.com/apakekbingung`
 Untuk mencoba string random
+
+`lynx parikesit.abimanyu.IT21.com/apakekbingung`
+
 ![image12](https://i.ibb.co/9h9McM5/image.png)
 
-`lynx parikesit.abimanyu.IT21.com/secret`
 Untuk 403 forbidden
+
+`lynx parikesit.abimanyu.IT21.com/secret`
+
 ![image3](https://i.ibb.co/XWL3WQN/image.png)
 
 ## **_Nomor 16_**
@@ -930,8 +998,9 @@ Buatlah suatu konfigurasi virtual host agar file asset www.parikesit.abimanyu.yy
 www.parikesit.abimanyu.yyy.com/js 
 
 ### Abimanyu
-`nano /etc/sites-available/parikesit.abimanyu.IT21.conf`
 Menambahkan konfigurasi `Alias /js /var/www/parikesit-abimanyu-it11/public/js`
+
+`nano /etc/sites-available/parikesit.abimanyu.IT21.conf`
 ```bash
 <VirtualHost *:80>
         # The ServerName directive sets the request scheme, hostname and port that
@@ -991,13 +1060,15 @@ Menambahkan konfigurasi `Alias /js /var/www/parikesit-abimanyu-it11/public/js`
 ### Testing
 #### Nakula dan Sadewa
 `lynx parikesit.abimanyu.IT21.com/js`
+
 ![image33](https://i.ibb.co/8jFFF7J/image.png)
 
 # **_Nomor 17_**
 Agar aman, buatlah konfigurasi agar www.rjp.baratayuda.abimanyu.yyy.com hanya dapat diakses melalui port 14000 dan 14400.
 ## Abimanyu
-`nano /etc/apache2/sites-available/rjp.baratayuda.abimanyu.IT21.com.conf`
 Membuat konfigurasi dengan `<VirtualHost *:14000 *:14400>`
+
+`nano /etc/apache2/sites-available/rjp.baratayuda.abimanyu.IT21.com.conf`
 ```bash
 <VirtualHost *:14000 *:14400>
   ServerAdmin webmaster@localhost
@@ -1009,8 +1080,9 @@ Membuat konfigurasi dengan `<VirtualHost *:14000 *:14400>`
   CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 ```
+Menambahkan konfigurasi port
+
 `nano /etc/apache2/ports.conf`
-Menambahkan konfigurasi
 ```bash
 # If you just change the port or add more ports here, you will likely also
 # have to change the VirtualHost statement in
@@ -1032,12 +1104,15 @@ Listen 14400
 #### Nakula dan Sadewa
 
 `lynx rjp.baratayuda.abimanyu.IT21.com:1234`
+
 ![image23]()
 
 `lynx rjp.baratayuda.abimanyu.IT21.com:14000`
+
 ![image23]()
 
 `lynx rjp.baratayuda.abimanyu.IT21.com:14400`
+
 ![image23]()
 
 ## **_Nomor 18_**
@@ -1071,8 +1146,11 @@ Kemudian, masukkan password baratayudaIT21
 ### Testing 
 #### Nakula dan Sadewa
 `lynx rjp.baratayuda.abimanyu.IT21.com (tanpa auth)`
+
 ![image56]()
+
 `lynx rjp.baratayuda.abimanyu.IT21.com:14000 -u Wayang:baratayudaIT21`
+
 ![image28]()
 
 # **_Nomor 19_**
@@ -1089,12 +1167,15 @@ Kemudian, masukkan password baratayudaIT21
     Redirect / http://www.abimanyu.IT21.com/
 </VirtualHost>
 ```
-`apache2ctl configtest`
-`service apache2 restart`
+```
+apache2ctl configtest
+service apache2 restart
+```
 
 ### Testing
-#### Nakula dan Sudawa
+#### Nakula dan Sadewa
 `lynx 10.74.4.3`
+
 ![image28]()
 
 ## **_Nomor 20_**
@@ -1162,4 +1243,5 @@ Kemudian, masukkan password baratayudaIT21
 ### Testing
 #### Nakula dan Sadewa
 `lynx parikesit.abimanyu.IT21.com/public/images/not-abimanyu.png`
+
 ![image37]()
