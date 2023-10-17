@@ -593,11 +593,7 @@ apt-get install lynx -y
 ```
 `lynx http://10.74.4.2`
 
-![image10]()
-
 `lynx http://10.74.4.3`
-
-![image31]()
 
 `lynx http://10.74.4.4`
 
@@ -677,15 +673,9 @@ apt-get install lynx -y
 ```
 `lynx http://10.74.4.2:8001`
 
-![image10]()
-
 `lynx http://10.74.4.3:8002`
 
-![image31]()
-
 `lynx http://10.74.4.4:8003`
-
-![image32]()
 
 `lynx arjuna.IT21.com`
 
