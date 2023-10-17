@@ -236,8 +236,8 @@ echo "
     ServerAdmin webmaster@abimanyu.IT21.com
     DocumentRoot /var/www/html
 
-    ErrorLog ${APACHE_LOG_DIR}/error.log
-    CustomLog ${APACHE_LOG_DIR}/access.log combined
+    ErrorLog \${APACHE_LOG_DIR}/error.log
+    CustomLog \${APACHE_LOG_DIR}/access.log combined
 
     Redirect / http://www.abimanyu.IT21.com/
 </VirtualHost>
