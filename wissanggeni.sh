@@ -2,13 +2,24 @@ apt-get update && apt install nginx php php-fpm -y
 php -v
 apt-get install lynx -y
 
-mkdir /var/www/wissanggeni
+mkdir /var/www/jarkom
 
 echo "
-    <?php
-    echo \"Halo Wissanggeni\";
-    ?>
-" > /var/www/wissanggeni/index.php
+   <?php
+\$hostname = gethostname();
+\$date = date('Y-m-d H:i:s');
+\$php_version = phpversion();
+\$username = get_current_user();
+
+
+
+echo \"Hello World!<br>\";
+echo \"Saya adalah: \$username<br>\";
+echo \"Saat ini berada di: \$hostname<br>\";
+echo \"Versi PHP yang saya gunakan: \$php_version<br>\";
+echo \"Tanggal saat ini: \$date<br>\";
+?>
+" > /var/www/jarkom/index.php
 
 service php7.0-fpm start
 
@@ -17,7 +28,7 @@ echo "
 
         listen 8003;
 
-        root /var/www/wissanggeni;
+        root /var/www/jarkom;
 
         index index.php index.html index.htm;
         server_name _;
@@ -36,14 +47,14 @@ echo "
                 deny all;
         }
 
-        error_log /var/log/nginx/wissanggeni_error.log;
-        access_log /var/log/nginx/wissanggeni_access.log;
+        error_log /var/log/nginx/jarkom_error.log;
+        access_log /var/log/nginx/jarkom_access.log;
     }
-" > /etc/nginx/sites-available/wissanggeni
+" > /etc/nginx/sites-available/jarkom
 
 rm -rf /etc/nginx/sites-available/default
 
-ln -s /etc/nginx/sites-available/wissanggeni /etc/nginx/sites-enabled
+ln -s /etc/nginx/sites-available/jarkom /etc/nginx/sites-enabled
 
 service nginx restart
 
